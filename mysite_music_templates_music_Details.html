@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+</head>
+<body>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'music/style.css' %}" type="text/css">
+    <img src="{{ album.album_logo.url }} " alt="{{ album.album_logo }}" width="1000" height="500">
+
+    <h1>Album Title : <i>{{ album.album_title}}</i></h1>
+    <h2>Album Artist : {{ album.artist }}</h2>
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+     {% for song in album.song_set.all %}
+    <form action="{% url 'music:favourite' album.id %} " method="post">
+        {% csrf_token %}
+            <input type="checkbox" name="song" id="song{{ forloop.counter }}" value ="{{ song.id }}">
+            <label for="song{{ forloop.counter }}">
+                {{ song.song_title }}
+                {% if song.is_favourite %}
+                    <img src="http://megaicons.net/static/img/icons_sizes/51/1538/256/favourites-star-sh-icon.png" height="16" width="16">
+                {% endif %}
+                <audio controls src="{{ song.song_path.url }}" >  </audio>
+            </label>
+            <br>
+
+        <input type="submit" value="Favourite">
+    </form>
+         <br>
+        <form action="{% url 'music:delete_song' song.id %} " method="post" style="display: inline;">
+            {% csrf_token %}
+                <input type="hidden" name="song_id" value="{{ song.id }}">
+                <button type="submit" style="height:25px; width:60px " >Delete
+                </button>
+
+        </form>
+            <form action="{% url 'music:update_song' song.id %} " method="post" style="display: inline;">
+            {% csrf_token %}
+                <input type="hidden" name="song_id" value="{{ song.id }}">
+                <button type="submit" style="height:25px; width:60px">Update
+                </button>
+
+        </form>
+
+     {% endfor %}
+    <h5></h5>
+    <div>
+        <form action="{% url 'music:add_song' %} " style="display: inline;">
+            {% csrf_token %}
+                <button type="submit" style="height:25px; width:100px">Add Song
+                </button>
+
+        </form>
+    </div>
+</body>
+</html>

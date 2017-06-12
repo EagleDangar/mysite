@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$USER_HOME$/Desktop/.idea/Desktop.iml" filepath="$USER_HOME$/Desktop/.idea/Desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../FirstAPI/.idea/FirstAPI.iml" filepath="$PROJECT_DIR$/../FirstAPI/.idea/FirstAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../face_detection_api/.idea/face_detection_api.iml" filepath="$PROJECT_DIR$/../face_detection_api/.idea/face_detection_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mysite.iml" filepath="$PROJECT_DIR$/.idea/mysite.iml" />
+    </modules>
+  </component>
+</project>
