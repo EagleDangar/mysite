@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music_Albums</title>
+</head>
+<body>
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="{% static 'music/style.css' %}" type="text/css">
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'music:index' %}">Music Crazy </a>
+        </div>
+    </div>
+</nav>
+<h3><strong>Here My all Album Collections</strong></h3>
+{% if all_albums %}
+      <ol>  {% for album in all_albums %}
+            <li>
+            <div>
+                <img src="{{ album.album_logo.url }} " alt="{{ album.album_logo }}" width="100" height="100">
+            </div>
+             <a href="{% url  'music:detail' album.id %} ">{{ album.album_title }}</a>
+                <div>
+        <form action="{% url 'music:delete_album' album.id %} " method="post" style="display: inline;">
+            {% csrf_token %}
+                <input type="hidden" name="album_id" value="{{ album.id }}">
+                <button type="submit" style="height:25px; width:60px " >Delete
+                </button>
+
+        </form>
+            <form action="{% url 'music:update_album' album.id %} " method="post" style="display: inline;">
+            {% csrf_token %}
+                <input type="hidden" name="album_id" value="{{ album.id }}">
+                <button type="submit" style="height:25px; width:60px">Update
+                </button>
+
+        </form>
+                </div>
+            <br>
+            </li>
+
+        {% endfor %}
+
+      </ol>
+{% else %}
+    <h1>You don't have any albums</h1>
+{% endif %}
+    <div>
+        <form action="{% url 'music:add_album' %} " style="display: inline;">
+            {% csrf_token %}
+                <button type="submit" style="height:25px; width:100px">Add Album
+                </button>
+        </form>
+    </div>
+</body>
+</html>
